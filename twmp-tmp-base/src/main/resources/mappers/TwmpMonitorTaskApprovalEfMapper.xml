@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpMonitorTaskApprovalEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskApprovalEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="approval_id" property="approvalId" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="task_change_id" property="taskChangeId" jdbcType="BIGINT" />
+    <result column="task_change_code" property="taskChangeCode" jdbcType="VARCHAR" />
+    <result column="approval_type" property="approvalType" jdbcType="TINYINT" />
+    <result column="change_reason" property="changeReason" jdbcType="VARCHAR" />
+    <result column="submit_id" property="submitId" jdbcType="BIGINT" />
+    <result column="submitter" property="submitter" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTimeDate" jdbcType="TIMESTAMP" />
+    <result column="approval_user_id" property="approvalUserId" jdbcType="BIGINT" />
+    <result column="approval_user" property="approvalUser" jdbcType="VARCHAR" />
+    <result column="approval_time" property="approvalTimeDate" jdbcType="TIMESTAMP" />
+    <result column="approval_status" property="approvalStatus" jdbcType="TINYINT" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ApprovalListResultMap" type="com.ceiec.twmp.tmp.vo.monitor.approval.result.ApprovalListQueryResultVO" >
+    <id column="approval_id" property="approvalId" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_change_id" property="taskChangeId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="task_change_code" property="taskChangeCode" jdbcType="VARCHAR" />
+    <result column="approval_type" property="approvalType" jdbcType="TINYINT" />
+    <result column="change_reason" property="changeReason" jdbcType="VARCHAR" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="submit_id" property="submitId" jdbcType="BIGINT" />
+    <result column="submitter" property="submitter" jdbcType="VARCHAR" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="approval_user_id" property="approvalUserId" jdbcType="BIGINT" />
+    <result column="approval_user" property="approvalUser" jdbcType="VARCHAR" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="approval_status" property="approvalStatus" jdbcType="TINYINT" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="listMonitorTaskApproval" parameterType="com.ceiec.twmp.tmp.vo.monitor.approval.query.ApprovalListQueryVO" resultMap="ApprovalListResultMap">
+    select a.approval_id approval_id, a.task_id task_id, a.task_change_id task_change_id, a.approval_type approval_type,
+      a.change_reason change_reason, t.task_code task_code, a.submitter submitter, a.submit_id submit_id, a.submit_time submit_time,
+      a.approval_user approval_user, a.approval_user_id approval_user_id, a.approval_time approval_time, a.approval_status approval_status
+    from twmp_monitor_task_approval_ef a
+    left join twmp_monitor_task_ef t  on a.task_id = t.task_id
+    <trim prefix="where" prefixOverrides="and" >
+      <if test="startTimeDate != null">
+        and unix_timestamp(submit_time) &gt;= unix_timestamp(#{startTimeDate})
+      </if>
+      <if test="endTimeDate != null">
+        and unix_timestamp(submit_time) &lt;= unix_timestamp(#{endTimeDate})
+      </if>
+      <if test="taskCode != null and taskCode != ''" >
+        and task_code like concat('%', #{taskCode}, '%')
+      </if>
+      <if test="approvalStatus != null" >
+        <if test="approvalStatus != 0" >
+          and approval_status = #{approvalStatus}
+        </if>
+        <if test="approvalStatus == 0" >
+          and approval_status in (2, 3, 4)
+        </if>
+      </if>
+      and a.department_id in
+      <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+        #{id}
+      </foreach>
+    </trim>
+  </select>
+
+  <select id="countMonitorTaskApproval" parameterType="com.ceiec.twmp.tmp.vo.monitor.approval.query.ApprovalListQueryVO" resultType="java.lang.Long" >
+    select count(0)
+    from twmp_monitor_task_approval_ef a
+    left join twmp_monitor_task_ef t on a.task_id = t.task_id
+    <trim prefix="where" prefixOverrides="and" >
+      t.deleted = 1
+      <if test="startTimeDate != null">
+        and unix_timestamp(submit_time) &gt;= unix_timestamp(#{startTimeDate})
+      </if>
+      <if test="endTimeDate != null">
+        and unix_timestamp(submit_time) &lt;= unix_timestamp(#{endTimeDate})
+      </if>
+      <if test="taskCode != null and taskCode != ''" >
+        and task_code like concat('%', #{taskCode}, '%')
+      </if>
+      <if test="approvalStatus != null" >
+        <if test="approvalStatus != 0" >
+          and approval_status = #{approvalStatus}
+        </if>
+        <if test="approvalStatus == 0" >
+          and approval_status in (1, 2, 3, 4)
+        </if>
+      </if>
+      and a.department_id in
+      <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+        #{id}
+      </foreach>
+    </trim>
+  </select>
+
+  <select id="queryLatestApproval" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    select * from (select * from twmp_monitor_task_approval_ef order by submit_time) as a where a.task_id = #{taskId} group by #{taskId};
+  </select>
+
+  <select id="countSubmittedApproval" parameterType="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskApprovalEf" resultType="java.lang.Long" >
+    select count(0) from twmp_monitor_task_approval_ef a
+    <trim prefix="where" prefixOverrides="and" >
+      <if test="approvalStatus != null" >
+        and a.approval_status = #{approvalStatus}
+      </if>
+      <if test="taskId" >
+        and a.task_id = #{taskId}
+      </if>
+      <if test="approvalType != null" >
+        and a.approval_type = #{approvalType}
+      </if>
+
+    </trim>
+  </select>
+
+  <!-- approval_status = 3为驳回。中止监控任务后，将所有待审批的任务approval_status=2设置为驳回-->
+  <update id="refuseApproval" parameterType="java.lang.Long" >
+    update twmp_monitor_task_approval_ef a
+    set a.approval_status = 3
+    where a.approval_status = 2 and a.task_id = #{taskId}
+  </update>
+</mapper>

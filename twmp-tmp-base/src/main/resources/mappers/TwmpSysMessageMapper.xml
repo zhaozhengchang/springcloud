@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysMessage" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="business_id" property="businessId" jdbcType="BIGINT" />
+    <result column="message_comment" property="messageComment" jdbcType="VARCHAR" />
+    <result column="message_type" property="messageType" jdbcType="TINYINT" />
+    <result column="message_sub_type" property="messageSubType" jdbcType="TINYINT" />
+    <result column="message_status" property="messageStatus" jdbcType="TINYINT" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="message_time" property="messageTime" jdbcType="TIMESTAMP" />
+    <result column="reader" property="reader" jdbcType="VARCHAR" />
+    <result column="reader_id" property="readerId" jdbcType="BIGINT" />
+    <result column="read_time" property="readTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="MessageListResultVO" type="com.ceiec.twmp.tmp.vo.message.result.MessageListResultVO" >
+    <id column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="message_type" property="messageType" jdbcType="TINYINT" />
+    <result column="message_comment" property="messageComment" jdbcType="VARCHAR" />
+    <result column="message_time" property="messageTime" jdbcType="TIMESTAMP" />
+    <result column="reader_id" property="readerId" jdbcType="BIGINT" />
+    <result column="reader" property="reader" jdbcType="VARCHAR" />
+    <result column="read_time" property="readerTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="getMessageByPage" parameterType="com.ceiec.twmp.tmp.vo.message.query.MessageListQueryVO" resultMap="MessageListResultVO" >
+    select m.message_id message_id, m.message_type message_type, m.message_comment message_comment, m.message_time message_time,
+      m.reader_id reader_id, m.reader reader, m.read_time read_time
+    from twmp_sys_message m
+    <where>
+        <if test="messageType != null" >
+          and m.message_type = #{messageType}
+        </if>
+        <if test="messageStatus != null" >
+          and m.message_status = #{messageStatus}
+        </if>
+        <if test="startDate != null" >
+          and unix_timestamp(m.message_time) &gt;= unix_timestamp(#{startDate})
+        </if>
+        <if test="endDate != null" >
+          and unix_timestamp(m.message_time) &lt;= unix_timestamp(#{endDate})
+        </if>
+        <choose>
+            <when test="messageSubTypes != null and messageSubTypes.size() != 0" >
+                and m.message_sub_type in
+                <foreach collection="messageSubTypes" item="messageSubType" index="index" open="(" close=")" separator="," >
+                    #{messageSubType}
+                </foreach>
+                <if test="messageSubType != null" >
+                    and m.message_sub_type = #{messageSubType}
+                </if>
+            </when>
+            <otherwise>
+                and 1 != 1
+            </otherwise>
+        </choose>
+
+        <if test="ownDepartmentIds != null and ownDepartmentIds.size() != 0" >
+            and m.department_id in
+            <foreach collection="ownDepartmentIds" item="departmentId" index="index" open="(" close=")" separator="," >
+                #{departmentId}
+            </foreach>
+        </if>
+        and unix_timestamp(m.message_time) &gt;= (select unix_timestamp(u.create_time) from twmp_sys_user u where u.user_id = #{userId} and u.deleted = 1)
+    </where>
+  </select>
+
+  <select id="countMessage" parameterType="com.ceiec.twmp.tmp.vo.message.query.MessageListQueryVO" resultType="Long" >
+      select count(0)
+      from twmp_sys_message m
+      <where>
+          <if test="messageType != null" >
+              and m.message_type = #{messageType}
+          </if>
+          <if test="messageStatus != null" >
+              and m.message_status = #{messageStatus}
+          </if>
+          <if test="startDate != null" >
+              and unix_timestamp(m.message_time) &gt;= unix_timestamp(#{startDate})
+          </if>
+          <if test="endDate != null" >
+              and unix_timestamp(m.message_time) &lt;= unix_timestamp(#{endDate})
+          </if>
+          <choose>
+              <when test="messageSubTypes != null and messageSubTypes.size() != 0" >
+                  and m.message_sub_type in
+                  <foreach collection="messageSubTypes" item="messageSubType" index="index" open="(" close=")" separator="," >
+                      #{messageSubType}
+                  </foreach>
+                  <if test="messageSubType != null" >
+                      and m.message_sub_type = #{messageSubType}
+                  </if>
+              </when>
+              <otherwise>
+                  and 1 != 1
+              </otherwise>
+          </choose>
+          <if test="ownDepartmentIds != null and ownDepartmentIds.size() != 0" >
+              and m.department_id in
+              <foreach collection="ownDepartmentIds" item="departmentId" index="index" open="(" close=")" separator="," >
+                  #{departmentId}
+              </foreach>
+          </if>
+          and unix_timestamp(m.message_time) &gt;= (select unix_timestamp(u.create_time) from twmp_sys_user u where u.user_id = #{userId} and u.deleted = 1)
+      </where>
+  </select>
+
+    <select id="getMessageByNum" parameterType="com.ceiec.twmp.tmp.vo.message.query.MessageListQueryVO" resultMap="MessageListResultVO" >
+        select m.message_id message_id, m.message_type message_type, m.message_comment message_comment, m.message_time message_time,
+        m.reader_id reader_id, m.reader reader, m.read_time read_time
+        from twmp_sys_message m
+        <where>
+            <choose>
+                <when test="messageSubTypes != null and messageSubTypes.size() != 0" >
+                    and m.message_sub_type in
+                    <foreach collection="messageSubTypes" item="messageSubType" index="index" open="(" close=")" separator="," >
+                        #{messageSubType}
+                    </foreach>
+                    <if test="messageSubType != null" >
+                        and m.message_sub_type = #{messageSubType}
+                    </if>
+                </when>
+                <otherwise>
+                    and 1 != 1
+                </otherwise>
+            </choose>
+            <if test="ownDepartmentIds != null and ownDepartmentIds.size() != 0" >
+                and m.department_id in
+                <foreach collection="ownDepartmentIds" item="departmentId" index="index" open="(" close=")" separator="," >
+                    #{departmentId}
+                </foreach>
+            </if>
+            and unix_timestamp(m.message_time) &gt;= (select unix_timestamp(u.create_time) from twmp_sys_user u where u.user_id = #{userId} and u.deleted = 1)
+        </where>
+
+        order by m.message_time desc
+        limit #{number}
+    </select>
+
+    <update id="setMessageRead" parameterType="com.ceiec.twmp.tmp.vo.message.read.MessageReadVO" >
+        update twmp_sys_message m
+        set m.message_status = #{messageStatus},  m.read_time = #{readTime}, m.reader = #{reader}, m.reader_id = #{readerId}
+        where m.message_id in
+        <foreach collection="messageIdArr" index="index" item="messageId" separator="," open="(" close=")">
+            #{messageId}
+        </foreach>
+    </update>
+</mapper>

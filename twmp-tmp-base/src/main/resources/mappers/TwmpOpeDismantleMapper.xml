@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpOpeDismantleMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpOpeDismantle" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="dismantle_id" property="dismantleId" jdbcType="BIGINT" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="ops" property="ops" jdbcType="VARCHAR" />
+    <result column="ops_id" property="opsId" jdbcType="BIGINT" />
+    <result column="dismantle_time" property="dismantleTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_former_name" property="personFormerName" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="person_birth_date" property="personBirthDate" jdbcType="TIMESTAMP" />
+    <result column="person_gender" property="personGender" jdbcType="TINYINT" />
+    <result column="person_marital_status" property="personMaritalStatus" jdbcType="TINYINT" />
+    <result column="person_career" property="personCareer" jdbcType="VARCHAR" />
+    <result column="person_phone" property="personPhone" jdbcType="VARCHAR" />
+    <result column="person_email" property="personEmail" jdbcType="VARCHAR" />
+    <result column="person_address" property="personAddress" jdbcType="VARCHAR" />
+    <result column="person_comment" property="personComment" jdbcType="VARCHAR" />
+    <result column="person_department_id" property="personDepartmentId" jdbcType="BIGINT" />
+    <result column="person_department_name" property="personDepartmentName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="OpeToResultVO" type="com.ceiec.twmp.tmp.vo.ope.result.OpeToResultVO">
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="beginTime" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="OpeFinishResultVO" type="com.ceiec.twmp.tmp.vo.ope.result.OpeFinishResultVO">
+    <id column="ope_id" property="opeId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="old_device_number" property="oldDeviceNumber" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="ops" property="ops" jdbcType="VARCHAR" />
+    <result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="OpeFinishDetailVO" type="com.ceiec.twmp.tmp.vo.ope.result.OpeFinishDetailVO">
+    <id column="ope_id" property="opeId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_former_name" property="personFormerName" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="person_birth_date" property="personBirthDate" jdbcType="TIMESTAMP" />
+    <result column="person_gender" property="personGender" jdbcType="TINYINT" />
+    <result column="person_marital_status" property="personMaritalStatus" jdbcType="TINYINT" />
+    <result column="person_career" property="personCareer" jdbcType="VARCHAR" />
+    <result column="person_phone" property="personPhone" jdbcType="VARCHAR" />
+    <result column="person_email" property="personEmail" jdbcType="VARCHAR" />
+    <result column="person_address" property="personAddress" jdbcType="VARCHAR" />
+    <result column="person_comment" property="personComment" jdbcType="VARCHAR" />
+    <result column="person_department_id" property="personDepartmentId" jdbcType="BIGINT" />
+    <result column="person_department_name" property="personDepartmentName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="queryToDismantleByPage" parameterType="com.ceiec.twmp.tmp.vo.ope.query.OpeToQueryVO" resultMap="OpeToResultVO">
+    select toi.task_id, toi.task_code, toi.person_id, toi.person_name, task.start_time as beginTime, task.end_time as endTime,
+    toi.device_id, toi.device_number
+    from twmp_ope_dismantle toi left join twmp_monitor_task_ef task on toi.task_id = task.task_id
+    where toi.deleted = 1
+    <if test="personName != null and personName != '' " >
+      and toi.person_name like  concat('%',#{personName},'%')
+    </if>
+    <if test="taskCode != null and taskCode != '' " >
+      and toi.task_code = like  concat('%',#{taskCode},'%')
+    </if>
+    and department_id in
+    <foreach collection="ownDepartmentId" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+    order by create_time desc
+  </select>
+
+  <select id="queryDismantledByPage" parameterType="com.ceiec.twmp.tmp.vo.ope.query.OpeFinishQueryVO" resultMap="OpeFinishResultVO">
+    select dismantle_id as ops_id, task_code, person_name, device_number, department_name, department_id, ops, dismantle_time as record_time
+    from twmp_ope_dismantle where deleted = 1
+    <if test="personName != null and personName != '' " >
+      and person_name like  concat('%',#{personName},'%')
+    </if>
+    <if test="taskCode != null and taskCode != '' " >
+      and task_code like  concat('%',#{taskCode},'%')
+    </if>
+    <if test="deviceNumber != null and deviceNumber != '' " >
+      and device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test="beginTime != null and beginTime != '' " >
+      and dismantle_time &gt;= #{beginTime}
+    </if>
+    <if test="endTime != null and endTime != '' " >
+      and dismantle_time &lt;= #{endTime}
+    </if>
+    <if test="departmentId != null and departmentId != '' " >
+      and department_id = #{departmentId}
+    </if>
+
+    and department_id in
+    <foreach collection="ownDepartmentId" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+    order by dismantle_time desc
+  </select>
+
+  <select id="queryDismantledDetail" parameterType="com.ceiec.twmp.tmp.vo.ope.query.OpeFinishDetailQueryVO" resultMap="OpeFinishDetailVO">
+    select dismantle_id as ops_id, device_number, person_number, person_id_card, person_name, person_former_name, person_url, person_birth_date,
+    person_gender, person_marital_status, person_career, person_phone, person_email, person_address, person_comment, person_department_id, person_department_name
+    from twmp_ope_dismantle where dismantle_id = #{opeId}
+  </select>
+</mapper>

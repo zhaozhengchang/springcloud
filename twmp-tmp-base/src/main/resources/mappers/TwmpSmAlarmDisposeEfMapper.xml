@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSmAlarmDisposeEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSmAlarmDisposeEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="alarm_dispose_id" property="alarmDisposeId" jdbcType="BIGINT" />
+    <result column="alarm_id" property="alarmId" jdbcType="BIGINT" />
+    <result column="dispose_type" property="disposeType" jdbcType="TINYINT" />
+    <result column="dispose_time" property="disposeTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="AlarmDisposeVO" type="com.ceiec.twmp.tmp.vo.alarm.result.AlarmDetailVO">
+    <id column="alarm_dispose_id" property="alarmDisposeId" jdbcType="BIGINT" />
+    <result column="alarm_id" property="alarmId" jdbcType="BIGINT" />
+    <result column="alarm_type" property="alarmType" jdbcType="TINYINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="dispose_time" property="disposeTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+  <select id="getAlarmDispose" parameterType="java.lang.Long" resultMap="AlarmDisposeVO">
+    select * from twmp_sm_alarm_dispose_ef where alarm_id =#{alarmId}
+  </select>
+</mapper>

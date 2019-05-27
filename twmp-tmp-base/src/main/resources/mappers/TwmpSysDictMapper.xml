@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysDictMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysDict" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="dict_id" property="dictId" jdbcType="BIGINT" />
+    <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+    <result column="dict_name_code" property="dictNameCode" jdbcType="VARCHAR" />
+    <result column="dict_value" property="dictValue" jdbcType="TINYINT" />
+    <result column="dict_parent_type" property="dictParentType" jdbcType="VARCHAR" />
+    <result column="dict_parent_value" property="dictParentValue" jdbcType="TINYINT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="change_enable" property="changeEnable" jdbcType="TINYINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+
+  <resultMap id="DictResultVoMap" type="com.ceiec.twmp.tmp.vo.dict.result.DictResultVo" >
+    <id column="dict_id" property="dictId" jdbcType="BIGINT" />
+    <result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+    <result column="dict_name" property="dictName" jdbcType="VARCHAR" />
+    <result column="dict_name_code" property="dictNameCode" jdbcType="VARCHAR" />
+    <result column="dict_value" property="dictValue" jdbcType="TINYINT" />
+    <result column="dict_parent_type" property="dictParentType" jdbcType="VARCHAR" />
+    <result column="dict_parent_value" property="dictParentValue" jdbcType="TINYINT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="change_enable" property="changeEnable" jdbcType="TINYINT" />
+  </resultMap>
+
+
+
+
+
+  <!-- blow is sql -->
+
+
+   <select id="getAllDict" resultMap="DictResultVoMap">
+     select dict_id, dict_name, dict_value, dict_name_code, dict_type, dict_parent_type, dict_parent_value, comment, change_enable
+     from twmp_sys_dict
+     where deleted = 1;
+   </select>
+
+
+  <select id="getDictNum" parameterType="com.ceiec.twmp.tmp.vo.dict.save.DictSaveVo" resultType="java.lang.Long">
+    select count(*)
+    from twmp_sys_dict
+    where dict_type = #{dictType}  and (   dict_value = #{dictValue}
+                                          or (dict_name = #{dictName} and dict_name is not null and dict_name != '')
+                                        ) and deleted = 1
+
+   </select>
+
+
+ </mapper>

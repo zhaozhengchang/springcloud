@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysAuthority" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="authority_id" property="authorityId" jdbcType="BIGINT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="authority_type" property="authorityType" jdbcType="TINYINT" />
+    <result column="authority_name" property="authorityName" jdbcType="VARCHAR" />
+    <result column="zh_name" property="zhName" jdbcType="VARCHAR" />
+    <result column="node" property="node" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="authority_url" property="authorityUrl" jdbcType="VARCHAR" />
+    <result column="authority_component" property="authorityComponent" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="show" property="show" jdbcType="TINYINT" />
+  </resultMap>
+
+
+
+  <select id="getAuthorityByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select *
+    from twmp_sys_authority
+    where authority_id in (select authority_id from twmp_sys_role_authority where role_id =  #{roleId,jdbcType=BIGINT}) and deleted = 1
+    order by sort
+  </select>
+
+</mapper>
