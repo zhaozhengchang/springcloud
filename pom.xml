@@ -30,16 +30,16 @@
         <module>twmp-authorize</module>
         <module>twmp-eureka</module>
         <module>twmp-config</module>
-        <module>twmp-zuul</module>
-        <module>twmp-zipkin</module>
-        <module>twmp-dashboard</module>
-        <module>twmp-admin</module>
-        <module>email-interface</module>
-        <module>email-service</module>
+        <!--<module>twmp-zuul</module>-->
+        <!--<module>twmp-zipkin</module>-->
+        <!--<module>twmp-dashboard</module>-->
+        <!--<module>twmp-admin</module>-->
+        <!--<module>email-interface</module>-->
+        <!--<module>email-service</module>-->
         <module>twmp-tmp-base</module>
         <module>twmp-tmp</module>
         <module>twmp-gateway</module>
-        <module>twmp-gps</module>
+        <!--<module>twmp-gps</module>-->
     </modules>
 
     <dependencies>

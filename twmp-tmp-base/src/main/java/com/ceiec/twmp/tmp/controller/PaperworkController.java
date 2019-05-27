@@ -66,7 +66,6 @@ public class PaperworkController {
         PagedItemsVO<TwmpSysPaperwork> list = null;
         try {
              list = paperworkService.listPaperwork(token , paperworkQueryVO);
-            System.out.println("****************21" );
              list.setPageSize(paperworkQueryVO.getPageSize());
              list.setPageIndex(paperworkQueryVO.getPageNo());
         } catch (Exception e) {
