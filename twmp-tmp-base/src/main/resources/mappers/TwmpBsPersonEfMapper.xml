@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpBsPersonEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpBsPersonEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_former_name" property="personFormerName" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="TIMESTAMP" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="marital_status" property="maritalStatus" jdbcType="TINYINT" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+  <resultMap id="PersonInfoListResultVO" type="com.ceiec.twmp.tmp.vo.person.result.PersonInfoListResultVO">
+    <id column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="task_status" property="personStatus" jdbcType="TINYINT" />
+    <result column="department_id" property="departmentId" jdbcType="TINYINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="PersonBasicDetailResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.PersonBasicDetailResultVO">
+    <id column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="marital_status" property="maritalStatus" jdbcType="TINYINT" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="former_name" property="formerName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <resultMap id="PersonAndDeviceVO" type="com.ceiec.twmp.tmp.vo.person.result.PersonAndDeviceVO" >
+    <id column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getPersonListByPage" parameterType="com.ceiec.twmp.tmp.vo.person.query.PersonQueryVO" resultMap="PersonInfoListResultVO">
+    select p.person_id person_id, p.person_name person_name, p.person_number person_number, p.birth_date birth_date, p.person_url person_url,
+    t.task_status task_status, t.deleted taskDeleted, p.gender gender,p.department_id department_id, d.department_name,
+    p.person_id_card, p.email email, p.phone phone, p.create_time create_time
+    from twmp_bs_person_ef p
+    left join twmp_sys_department d on p.department_id = d.department_id
+    left Join twmp_monitor_task_ef t on p.person_id = t.person_id
+    where p.deleted = 1 and (t.deleted is null or t.deleted = 1)
+    <if test="departmentId != null" >
+        and  p.department_id = #{departmentId}
+    </if>
+    <if test="personName != null and personName != ''">
+      and p.person_name like concat('%',#{personName},'%')
+    </if>
+    <if test="personNumber != null and personNumber != ''">
+      and p.person_number like concat('%',#{personNumber}, '%')
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''">
+      and t.device_number like concat('%', #{deviceNumber}, '%')
+    </if>
+    <if test="taskStatusList != null and taskStatusList.size() != 0">
+      <!--1 表示未监控，未监控可能是监控任务不存在，也可能是未开始监控，如安装中等状态 -->
+      <if test="personStatus.byteValue() == 1" >
+        and
+        <trim prefix="(" suffix=")" >
+          t.task_status is null
+          or t.task_status in
+          <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+            #{taskStatus}
+          </foreach>
+        </trim>
+      </if>
+      <if test=" personStatus.byteValue() != 1" >
+        and t.task_status in
+        <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+          #{taskStatus}
+        </foreach>
+      </if>
+    </if>
+    and p.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+        #{id}
+    </foreach>
+  </select>
+
+  <select id="countPersonList" parameterType="com.ceiec.twmp.tmp.vo.person.query.PersonQueryVO" resultType="java.lang.Long">
+    select count(0)
+    from twmp_bs_person_ef p
+    left Join twmp_monitor_task_ef t on p.person_id = t.person_id
+    where p.deleted = 1 and (t.deleted is null or t.deleted = 1)
+    <if test="departmentId != null" >
+      and  p.department_id = #{departmentId}
+    </if>
+    <if test="personName != null and personName != ''">
+      and p.person_name like concat('%',#{personName},'%')
+    </if>
+    <if test="personNumber != null and personNumber != ''">
+      and p.person_number like concat('%',#{personNumber}, '%')
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''">
+      and t.device_number like concat('%', #{deviceNumber}, '%')
+    </if>
+    <if test="taskStatusList != null and taskStatusList.size() != 0">
+      <!--1 表示未监控，未监控可能是监控任务不存在，也可能是未开始监控，如安装中等状态 -->
+      <if test="personStatus.byteValue() == 1" >
+        and
+        <trim prefix="(" suffix=")" >
+          t.task_status is null
+          or t.task_status in
+          <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+            #{taskStatus}
+          </foreach>
+        </trim>
+      </if>
+      <if test=" personStatus.byteValue() != 1" >
+        and t.task_status in
+        <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+          #{taskStatus}
+        </foreach>
+      </if>
+    </if>
+    and p.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="getPersonDetail" parameterType="com.ceiec.twmp.tmp.vo.person.query.PersonQueryVO" resultMap="PersonBasicDetailResultVO">
+    select p.person_id person_id, p.person_name person_name, p.person_number person_number, p.person_url person_url,
+    p.birth_date birth_date,p.gender gender, p.marital_status marital_status,
+    p.career career, p.person_id_card, p.person_former_name former_name, p.department_id department_id,
+    p.email email, p.phone phone, p.address address, m.device_id device_id
+    from twmp_bs_person_ef p
+    left join twmp_monitor_task_ef m on p.person_id = m.person_id
+    where p.deleted = 1
+    and (m.deleted is null or m.deleted = 1)
+    and  p.person_id = #{personId}
+    and  p.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+        #{id}
+    </foreach>
+  </select>
+
+  <select id="getPersonAndDeviceInfo" parameterType="java.lang.Long" resultMap="PersonAndDeviceVO" >
+    select p.person_id person_id, p.department_id department_id,  p.person_name,
+    sd.department_name department_name, p.device_id device_id, d.device_number device_number
+    from twmp_bs_person_ef p
+    left join twmp_dev_device d on d.device_id = p.device_id
+    left join twmp_sys_department sd on p.department_id = sd.department_id
+    where p.person_id = #{personId}
+  </select>
+
+  <insert id="insertPersonInfoList" parameterType="java.util.List" >
+    insert into twmp_bs_person_ef (person_id, person_name, person_number, department_id, person_id_card,
+      phone, career, gender, marital_status, birth_date, person_former_name, address, email, comment, person_url,
+      creator, creator_id, create_time, deleted)
+    values
+    <foreach collection="list" item="personInfo" index="index" separator="," >
+      ( #{personInfo.personId}, #{personInfo.personName}, #{personInfo.personNumber} , #{personInfo.departmentId} , #{personInfo.personIdCard},
+      #{personInfo.phone}, #{personInfo.career} , #{personInfo.gender} , #{personInfo.maritalStatus}, #{personInfo.birthDate},
+      #{personInfo.personFormerName}, #{personInfo.address}, #{personInfo.email}, #{personInfo.comment}, #{personInfo.personUrl}, #{personInfo.creator},
+      #{personInfo.creatorId}, #{personInfo.createTime}, #{personInfo.deleted})
+    </foreach>
+  </insert>
+
+  <select id="repeatedPerson" parameterType="java.util.List" resultMap="BaseResultMap" >
+    select * from twmp_bs_person_ef
+    <trim prefix="where">
+      <if test="list != null and list.size() != 0" >
+        person_id_card in
+        <foreach collection="list" item="person" index="index" open="(" close=")" separator=",">
+          #{person.personIdCard}
+        </foreach>
+      </if>
+    </trim>
+  </select>
+
+
+  <select id="getPersonList" parameterType="com.ceiec.twmp.tmp.vo.person.query.PersonQueryVO" resultMap="PersonInfoListResultVO">
+    select p.person_id , p.person_name , p.person_number , p.birth_date , p.person_url ,
+    p.gender ,p.department_id , d.department_name,
+    p.person_id_card, p.phone , p.create_time create_time
+    from twmp_bs_person_ef p
+    left join twmp_sys_department d on p.department_id = d.department_id
+    where p.deleted = 1
+    <if test="departmentId != null" >
+      and  p.department_id = #{departmentId}
+    </if>
+    <if test="personName != null and personName != ''">
+      and p.person_name like concat('%',#{personName},'%')
+    </if>
+    <if test="personNumber != null and personNumber != ''">
+      and p.person_number like concat('%',#{personNumber}, '%')
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''">
+      and t.device_number like concat('%', #{deviceNumber}, '%')
+    </if>
+    and p.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+    order by p.create_time desc
+  </select>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSmDeviceUsedReportMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSmDeviceUsedReport" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="report_id" property="reportId" jdbcType="BIGINT" />
+    <result column="utilization_rate" property="utilizationRate" jdbcType="DOUBLE" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="utility_time" property="utilityTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="deviceUsageRate" parameterType="com.ceiec.twmp.tmp.vo.chart.query.ChartQueryVO" resultMap="BaseResultMap">
+   select utility_time , utilization_rate
+   from twmp_sm_device_used_report a
+    where 1 = 1
+    <if test="departmentId != null and departmentId != ''">
+      and a.department_id in
+      <foreach collection="departmentIdList" item="id" index="index" separator="," open="(" close=")">
+        #{id}
+      </foreach>
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and a.utility_time >= #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      <![CDATA[and a.utility_time <= #{endTime}]]>
+    </if>
+      order by utility_time
+  </select>
+</mapper>

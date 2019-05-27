@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpDevDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpDevDevice" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="ope_status" property="opeStatus" jdbcType="TINYINT" />
+    <result column="online_status" property="onlineStatus" jdbcType="TINYINT" />
+    <result column="device_power" property="devicePower" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="attribute_extend" property="attributeExtend" jdbcType="LONGVARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="DeviceListVO" type="com.ceiec.twmp.tmp.vo.device.result.DeviceListVO" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="BIGINT" />
+    <result column="ope_status" property="opeStatus" jdbcType="TINYINT" />
+    <result column="online_status" property="onlineStatus" jdbcType="TINYINT" />
+    <result column="device_power" property="devicePower" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+    <result column="attribute_extend" property="attributeExtend" jdbcType="LONGVARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="deviceCountByDepartmentId" parameterType="long" resultType="int">
+    select count(report_id) from twmp_dev_device a where a.department_id in
+    <foreach collection="list" item="department_id" index="index" open="(" close=")" separator=",">
+      #{department_id}
+    </foreach>
+  </select>
+
+
+  <select id="getDeviceByPage" parameterType="com.ceiec.twmp.tmp.vo.device.query.DevicePageQueryVO" resultMap="DeviceListVO">
+    select dev.*, dept.department_name from twmp_dev_device dev
+    left join twmp_sys_department dept on dev.deparment_id = dept.department_id where deleted = 1
+    <if test="departmentId != null and departmentId != ''" >
+      and department_id = #{departmentId}
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test="opeStatus != null and opeStatus != ''" >
+      and ope_status = #{opeStatus}
+    </if>
+    <if test="typeId != null and typeId != ''" >
+      and type_id = #{typeId}
+    </if>
+    order by create_time desc
+  </select>
+
+  <select id="countDevice" parameterType="com.ceiec.twmp.tmp.vo.device.query.DevicePageQueryVO" resultType="java.lang.Long">
+    select count(dev.device_id) from twmp_dev_device dev
+    left join twmp_sys_department dept on dev.deparment_id = dept.department_id where deleted = 1
+    <if test="departmentId != null and departmentId != ''" >
+      and department_id = #{departmentId}
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test="opeStatus != null and opeStatus != ''" >
+      and ope_status = #{opeStatus}
+    </if>
+    <if test="typeId != null and typeId != ''" >
+      and type_id = #{typeId}
+    </if>
+  </select>
+
+  <select id="getDevice" parameterType="com.ceiec.twmp.tmp.vo.device.query.DeviceQueryVO" resultMap="DeviceListVO">
+    select * from twmp_dev_device where deleted = 1
+    <if test="departmentId != null and departmentId != ''" >
+      and department_id = #{departmentId}
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test="opeStatus != null and opeStatus != ''" >
+      and ope_status = #{opeStatus}
+    </if>
+    <if test="typeId != null and typeId != ''" >
+      and type_id = #{typeId}
+    </if>
+  </select>
+
+
+  <select id="queryDeviceByDeviceNumber"  resultMap="BaseResultMap">
+    select * from twmp_dev_device where deleted = 1
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    order by create_time desc
+  </select>
+
+
+  <select id="countDeviceByDeviceNumber"  resultType="Long">
+    select dev.*, dept.department_name from twmp_dev_device dev
+    left join twmp_sys_department dept on dev.deparment_id = dept.department_id where deleted = 1
+    <if test="departmentId != null and departmentId != ''" >
+      and department_id = #{departmentId}
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number like concat('%',#{deviceNumber},'%')
+    </if>
+    <if test="opeStatus != null and opeStatus != ''" >
+      and ope_status = #{opeStatus}
+    </if>
+  </select>
+
+
+
+  <select id="getAllDevice"  resultMap="BaseResultMap">
+    select * from twmp_dev_device
+    where deleted = 1
+    order by create_time desc
+  </select>
+
+
+  <insert id="addBatch" parameterType="java.util.List">
+    isnert into twmp_dev_device(device_id, device_number, type_id, ope_status, online_status,
+    attribute_extend, creator, creator_id, create_time, department_id, deleted) values
+    <foreach collection="list" item="device" index="index" separator="," >
+      (#{device.deviceId}, #{device.deviceNumber}, #{device.typeId}, #{device.opeStatus}, #{device.onlineStatus},
+      #{device.attributeExtend}, #{device.creator}, #{device.creatorId}, #{device.createTime}, #{device.departmentId}, #{device.deleted})
+    </foreach>
+  </insert>
+
+</mapper>

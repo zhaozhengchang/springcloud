@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSmDeviceAlarmReportMapper">
+    <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSmDeviceAlarmReport">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="report_id" property="reportId" jdbcType="BIGINT"/>
+        <result column="num" property="num" jdbcType="BIGINT"/>
+        <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="alarm_type" property="alarmType" jdbcType="TINYINT"/>
+        <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryAlarm" parameterType="com.ceiec.twmp.tmp.vo.chart.query.ChartQueryVO" resultMap="BaseResultMap">
+        select num , alarm_type , alarm_time from twmp_sm_device_alarm_report a
+        where num != 0
+        <if test="departmentId != null and departmentId != ''">
+            and a.department_id in
+            <foreach collection="departmentIdList" item="id" index="index" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and a.alarm_time >= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[and a.alarm_time <= #{endTime}]]>
+        </if>
+        order by a.alarm_time
+    </select>
+    <select id="queryalarmType" parameterType="com.ceiec.twmp.tmp.vo.chart.query.ChartQueryVO" resultMap="BaseResultMap">
+        select sum(num) num , alarm_type  from twmp_sm_device_alarm_report a
+        where num != 0
+        <if test="departmentId != null and departmentId != ''">
+            and a.department_id in
+            <foreach collection="departmentIdList" item="id" index="index" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and a.alarm_time >= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[and a.alarm_time <= #{endTime}]]>
+        </if>
+        group by a.alarm_type
+    </select>
+
+    <select id="selectDays" parameterType="com.ceiec.twmp.tmp.vo.chart.query.QueryDaysVO" resultType="string">
+        select DISTINCT date(a.alarm_time) from  twmp_sm_device_alarm_report a
+        where a.alarm_time >= #{today} - #{days}
+        group by a.alarm_time
+    </select>
+
+
+</mapper>

@@ -1,0 +1,165 @@
+{
+  "code": "1000",
+  "data": {
+    "pendingList": [
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      }
+    ],
+    "unassignedList": [
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      }
+    ],
+    "processedList": [
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      },
+      {
+        "alarmId": 10001,
+        "alarmNumber": "T10001",
+        "alarmTime": "2018-12-10 10:29:33",
+        "alarmTypeId": 3,
+        "alarmType": "越界",
+        "userId": 1001,
+        "userName": "Peter Washington",
+        "handleUserName": "",
+        "handleTime": ""
+      }
+    ]
+  }
+}

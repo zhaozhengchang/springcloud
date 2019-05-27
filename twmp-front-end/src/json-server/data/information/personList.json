@@ -1,0 +1,92 @@
+{
+  "code": 10000,
+  "data": {
+      "pageCount": 0,
+      "pageIndex": 0,
+      "pageSize": 0,
+      "total": 6,
+      "hasPre": 0,
+      "hasNext": 0,
+      "items": [
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 592725769240576,
+              "personName": "aaaa",
+              "personNumber": "BJ342",
+              "personStatus": 1,
+              "birthDate": "1984-02-04",
+              "gender": 1,
+              "personIdCard": "22344",
+              "phone": "234",
+              "email": "shhhh@gmail.com"
+          },
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 592725769240577,
+              "personName": "bbbb",
+              "personNumber": "BJ343",
+              "personStatus": 1,
+              "birthDate": "1984-02-05",
+              "gender": 2,
+              "personIdCard": "224344",
+              "phone": "234",
+              "email": "shhhh@gmail.com"
+          },
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 587016962146304,
+              "personName": "Bruce",
+              "personNumber": "2",
+              "personStatus": 1,
+              "birthDate": "1983-10-2",
+              "gender": 1,
+              "personIdCard": "2x",
+              "phone": "2342342",
+              "email": "bruce@gmail.com"
+          },
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 571194059358208,
+              "personName": "Bruce",
+              "personNumber": "3",
+              "personStatus": 3,
+              "taskDeleted": 1,
+              "birthDate": "1983-10-2",
+              "gender": 1,
+              "personIdCard": "2x",
+              "phone": "2342342",
+              "email": "bruce@gmail.com"
+          },
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 566932040253440,
+              "personName": "Marc",
+              "personNumber": "2",
+              "personStatus": 1,
+              "birthDate": "1983-10-2",
+              "gender": 1,
+              "personIdCard": "2x",
+              "phone": "2342342",
+              "email": "jackon@gmail.com"
+          },
+          {
+              "pageNo": 1,
+              "pageSize": 10,
+              "personId": 566822376177664,
+              "personName": "Danel",
+              "personNumber": "D45322222",
+              "personStatus": 1,
+              "birthDate": "1983-10-2",
+              "gender": 1,
+              "personIdCard": "3333x",
+              "phone": "2342342",
+              "email": "jackon@gmail.com"
+          }
+      ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "code":10000,
+  "data":[
+      {
+          "num":1,
+          "alarmType":2
+      },
+      {
+          "num":1,
+          "alarmType":3
+      }
+  ]
+}

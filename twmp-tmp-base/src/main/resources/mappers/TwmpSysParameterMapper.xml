@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysParameterMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysParameter" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="parameter_id" property="parameterId" jdbcType="BIGINT" />
+    <result column="parameter_name" property="parameterName" jdbcType="VARCHAR" />
+    <result column="parameter_range" property="parameterRange" jdbcType="VARCHAR" />
+    <result column="parameter_unit" property="parameterUnit" jdbcType="VARCHAR" />
+    <result column="parameter_value" property="parameterValue" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+
+  <select id="queryByParameterName" parameterType="String" resultMap="BaseResultMap">
+      select * from twmp_sys_parameter where parameter_name = #{parameterName}
+  </select>
+
+
+</mapper>

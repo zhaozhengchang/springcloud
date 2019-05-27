@@ -1,0 +1,225 @@
+{
+	"code": 10000,
+	"data": [
+      {
+        "dictId": 1,
+        "dictType": "marital_status",
+        "dictName": "已婚",
+        "dictNameCode": "",
+        "dictValue": 1,
+        "comment": "",
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 2,
+        "dictType": "marital_status",
+        "dictName": "未婚",
+        "dictNameCode": null,
+        "dictValue": 2,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 3,
+        "dictType": "gender",
+        "dictName": "男",
+        "dictNameCode": null,
+        "dictValue": 1,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 4,
+        "dictType": "gender",
+        "dictName": "女",
+        "dictNameCode": null,
+        "dictValue": 2,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 5,
+        "dictType": "gender",
+        "dictName": "其他",
+        "dictNameCode": null,
+        "dictValue": 3,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 6,
+        "dictType": "relation_type",
+        "dictName": "父母",
+        "dictNameCode": null,
+        "dictValue": 1,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 7,
+        "dictType": "relation_type",
+        "dictName": "子女",
+        "dictNameCode": null,
+        "dictValue": 2,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 8,
+        "dictType": "relation_type",
+        "dictName": "亲戚",
+        "dictNameCode": null,
+        "dictValue": 3,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 9,
+        "dictType": "relation_type",
+        "dictName": "朋友",
+        "dictNameCode": null,
+        "dictValue": 4,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 10,
+        "dictType": "relation_type",
+        "dictName": "社区主任",
+        "dictNameCode": null,
+        "dictValue": 5,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 11,
+        "dictType": "relation_type",
+        "dictName": "邻居",
+        "dictNameCode": null,
+        "dictValue": 6,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 12,
+        "dictType": "relation_type",
+        "dictName": "其他",
+        "dictNameCode": null,
+        "dictValue": 7,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 13,
+        "dictType": "task_outside_record_type",
+        "dictName": "定期汇报",
+        "dictNameCode": null,
+        "dictValue": 1,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 14,
+        "dictType": "task_outside_record_type",
+        "dictName": "社区服务",
+        "dictNameCode": null,
+        "dictValue": 2,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 15,
+        "dictType": "task_outside_record_type",
+        "dictName": "教育学习",
+        "dictNameCode": null,
+        "dictValue": 3,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 16,
+        "dictType": "task_outside_record_type",
+        "dictName": "违规记录",
+        "dictNameCode": null,
+        "dictValue": 4,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 17,
+        "dictType": "task_outside_record_type",
+        "dictName": "其他",
+        "dictNameCode": null,
+        "dictValue": 5,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 18,
+        "dictType": "criminal_type",
+        "dictName": "财产侵犯",
+        "dictNameCode": null,
+        "dictValue": 6,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 19,
+        "dictType": "marital_status",
+        "dictName": "离异",
+        "dictNameCode": null,
+        "dictValue": 3,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    },
+    {
+        "dictId": 575764297383936,
+        "dictType": "marital_status",
+        "dictName": "未知",
+        "dictNameCode": null,
+        "dictValue": 4,
+        "comment": null,
+        "parentType": null,
+        "parentValue": 0,
+        "changeEnable": 2
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "code": 10000,
+  "error": null,
+  "data": {
+      "pageCount": 0,
+      "pageIndex": 0,
+      "pageSize": 0,
+      "total": 312,
+      "hasPre": 0,
+      "hasNext": 0,
+      "items": [
+          {
+              "messageId": 3199744,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200000,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": 123,
+              "reader": "哈哈哈",
+              "readerTime": "2019-03-23 19:02:01"
+          },
+          {
+              "messageId": 3200256,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199745,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200001,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200257,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199746,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200002,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200258,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199747,
+              "messageType": "1",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200003,
+              "messageType": "1",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200259,
+              "messageType": "1",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199748,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200004,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200260,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199749,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200005,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200261,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3199750,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          },
+          {
+              "messageId": 3200006,
+              "messageType": "2",
+              "messageComment": "test",
+              "messageTime": "2019-03-22 18:43:40.0",
+              "readerId": null,
+              "reader": null,
+              "readerTime": null
+          }
+      ]
+  }
+}

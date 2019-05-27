@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpMonitorTaskTeamEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskTeamEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="team_id" property="teamId" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="task_change_id" property="taskChangeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="relation_type" property="relationType" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+  <insert id="insertTeamList" parameterType="java.util.List" >
+    insert into twmp_monitor_task_team_ef (team_id, task_id, name, photo_url, relation_type, phone, email, address,
+    creator, creator_id, create_time)
+    values
+    <foreach collection="list" item="team" index="index" separator="," >
+      ( #{team.teamId}, #{team.taskId}, #{team.name}, #{team.photoUrl}, #{team.relationType}, #{team.phone}, #{team.email},
+        #{team.address}, #{team.creator}, #{team.creatorId}, #{team.createTime})
+    </foreach>
+  </insert>
+
+  <update id="updateTeamList" parameterType="java.util.List" >
+    update twmp_monitor_task_team_ef
+    set name =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.name}
+    </foreach>
+    photo_url =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.photoUrl}
+    </foreach>
+    relation_type =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.relationType}
+    </foreach>
+    phone =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.phone}
+    </foreach>
+    email =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.email}
+    </foreach>
+    address =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.address}
+    </foreach>
+    updater =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.updater}
+    </foreach>
+    updater_id =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+        when #{item.teamId} then #{item.updaterId}
+    </foreach>
+    update_time =
+    <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end">
+        when #{item.teamId} then #{item.updateTime}
+    </foreach>
+    where team_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+        #{item.teamId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <update id="deleteTeamList" parameterType="java.util.List" >
+    update twmp_monitor_task_team_ef
+    set deleted =
+        <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+          when #{item.teamId} then #{item.deleted}
+        </foreach>
+        updater =
+        <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+          when #{item.teamId} then #{item.updater}
+        </foreach>
+        updater_id =
+        <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end,">
+          when #{item.teamId} then #{item.updaterId}
+        </foreach>
+        update_time =
+        <foreach collection="list" item="item" index="index" separator=" " open="case team_id" close="end">
+          when #{item.teamId} then #{item.updateTime}
+        </foreach>
+    where team_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.teamId,jdbcType=BIGINT}
+    </foreach>
+
+  </update>
+
+<update id="updateChangeTaskId" parameterType="java.lang.Long" >
+    update twmp_monitor_task_team_ef
+    set task_change_id = #{taskId}
+    where task_id = #{taskId}
+</update>
+</mapper>

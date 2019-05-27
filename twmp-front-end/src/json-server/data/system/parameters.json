@@ -1,0 +1,47 @@
+{
+	"code": 10000,
+	"data": [
+    {
+      "parameterId": 1,
+      "parameterName": "轨迹跟踪时间长度配置",
+      "parameterRange": "0,30",
+      "parameterUnit": "分钟",
+      "parameterValue": 1
+    },
+    {
+      "parameterId": 2,
+      "parameterName": "监控用户自动分配个数",
+      "parameterRange": "0,10",
+      "parameterUnit": "个",
+      "parameterValue": 5
+    },
+    {
+      "parameterId": 3,
+      "parameterName": "监控用户最大任务数",
+      "parameterRange": "0,10",
+      "parameterUnit": "个",
+      "parameterValue": 5
+    },
+    {
+      "parameterId": 4,
+      "parameterName": "电子脚环设备离线时间阈值",
+      "parameterRange": "0,30",
+      "parameterUnit": "分钟",
+      "parameterValue": 1
+    },
+    {
+      "parameterId": 5,
+      "parameterName": "低电量告警阈值",
+      "parameterRange": "0,100",
+      "parameterUnit": "百分比",
+      "parameterValue": 20
+    },
+    {
+      "parameterId": 6,
+      "parameterName": "监控任务到期提前通知时间",
+      "parameterRange": "0,10",
+      "parameterUnit": "天",
+      "parameterValue": 3
+    }
+  ]
+}

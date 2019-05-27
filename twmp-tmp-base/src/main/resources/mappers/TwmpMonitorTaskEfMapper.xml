@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpMonitorTaskEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="task_level" property="taskLevel" jdbcType="TINYINT" />
+    <result column="task_status" property="taskStatus" jdbcType="TINYINT" />
+    <result column="document_url" property="documentUrl" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="task_reason" property="taskReason" jdbcType="VARCHAR" />
+    <result column="report_location" property="reportLocation" jdbcType="VARCHAR" />
+    <result column="report_start_time" property="reportStartTime" jdbcType="TIMESTAMP" />
+    <result column="report_end_time" property="reportEndTime" jdbcType="TIMESTAMP" />
+    <result column="report_time" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="report_time_interval" property="reportTimeInterval" jdbcType="TIMESTAMP" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+  <resultMap id="MonitorTaskQueryResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.MonitorTaskQueryResultVO" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="task_status" property="taskStatus" jdbcType="TINYINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="task_level" property="taskLevel" jdbcType="TINYINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="task_progress" property="taskProgress" jdbcType="INTEGER" />
+    <result column="count_submit" property="countSubmit" jdbcType="INTEGER" />
+    <result column="count_change_device" property="countChangeDevice" jdbcType="INTEGER" />
+  </resultMap>
+
+<resultMap id="CriminalDetail" type="com.ceiec.twmp.tmp.vo.person.result.PersonCriminalResultVO" >
+    <id column="criminal_id" property="criminalId" jdbcType="BIGINT" />
+    <result column="criminal_type" property="criminalType" jdbcType="TINYINT" />
+    <result column="criminal_time" property="criminalTime" jdbcType="TIMESTAMP" />
+    <result column="criminal_site" property="criminalSite" jdbcType="VARCHAR" />
+    <result column="criminal_act" property="criminalAct" jdbcType="VARCHAR" />
+    <result column="law_enforcement_agency" property="lawEnforcementAgency" jdbcType="VARCHAR" />
+    <result column="criminal_number" property="criminalNumber" jdbcType="VARCHAR" />
+    <result column="dispose_time" property="disposeTime" jdbcType="TIMESTAMP" />
+    <result column="dispose_result" property="disposeResult" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="PersonBasicDetailResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.PersonBasicDetailResultVO" >
+    <id column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="marital_status" property="maritalStatus" jdbcType="TINYINT" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="person_former_name" property="formerName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <resultMap id="MonitorTaskDetailQueryResultVO"  type="com.ceiec.twmp.tmp.vo.monitor.result.MonitorTaskDetailQueryResultVO" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_former_name" property="formerName" jdbcType="VARCHAR" />
+    <result column="person_number" property="personNumber" jdbcType="VARCHAR" />
+    <result column="person_url" property="personUrl" jdbcType="VARCHAR" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="marital_status" property="maritalStatus" jdbcType="TINYINT" />
+    <result column="person_id_card" property="personIdCard" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTimeDate" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTimeDate" jdbcType="TIMESTAMP" />
+    <result column="task_level" property="taskLevel" jdbcType="TINYINT" />
+    <result column="document_url" property="documentUrl" jdbcType="TINYINT" />
+    <result column="task_reason" property="taskReason" jdbcType="VARCHAR" />
+    <result column="report_start_time" property="reportStartTimeDate" jdbcType="TIMESTAMP" />
+    <result column="report_end_time" property="reportEndTimeDate" jdbcType="TIMESTAMP" />
+    <result column="report_time_interval" property="reportTimeInterval" jdbcType="INTEGER" />
+    <result column="report_location" property="reportLocation" jdbcType="VARCHAR" />
+    <result column="report_time" property="reportTimeDate" jdbcType="TIMESTAMP" />
+    <collection property="criminalEfList" ofType="com.ceiec.twmp.tmp.entity.TwmpBsPersonCriminalEf" >
+      <id column="criminal_id" property="criminalId" jdbcType="BIGINT"/>
+      <result column="criminal_type" property="criminalType" jdbcType="INTEGER"/>
+      <result column="criminal_time" property="criminalTime" jdbcType="TIMESTAMP"/>
+      <result column="criminal_site" property="criminalSite" jdbcType="VARCHAR"/>
+      <result column="criminal_act" property="criminalAct" jdbcType="VARCHAR"/>
+      <result column="law_enforcement_agency" property="lawEnforcementAgency" jdbcType="VARCHAR"/>
+      <result column="dispose_time" property="disposeTime" jdbcType="TIMESTAMP" />
+      <result column="dispose_result" property="disposeResult" jdbcType="VARCHAR"/>
+      <result column="criminal_number" property="criminalNumber" jdbcType="VARCHAR"/>
+    </collection>
+  </resultMap>
+
+  <resultMap id="MonitorTaskFenceRequltVO" type="com.ceiec.twmp.tmp.vo.monitor.result.FenceResultVO" >
+    <id column="fence_id" property="fenceId" jdbcType="BIGINT" />
+    <result column="fence_type" property="fenceType" jdbcType="TINYINT" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTimeDate" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTimeDate" jdbcType="TIMESTAMP" />
+    <result column="fence_status" property="fenceStatus" jdbcType="TINYINT" />
+    <collection property="fenceCoordinate" ofType="com.ceiec.twmp.tmp.vo.monitor.result.FenceAreaGatherResultVO" >
+      <id column="shape_id" property="shapeId" jdbcType="BIGINT" />
+      <result column="space" property="space" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+
+  <resultMap id="MonitorGuardianResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.MonitorGuardianResultVO" >
+    <id column="team_id" property="teamId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="relation_type" property="relationType" jdbcType="TINYINT" />
+  </resultMap>
+
+  <resultMap id="PersonTaskResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.PersonTaskResultVO" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <resultMap id="MonitorPersonResultVO" type="com.ceiec.twmp.tmp.vo.monitor.result.TaskResultVO">
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_code" property="taskCode" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="task_level" property="taskLevel" jdbcType="TINYINT" />
+    <result column="online_status" property="onlineStatus" jdbcType="TINYINT" />
+    <result column="device_power" property="devicePower" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getTaskList" parameterType="com.ceiec.twmp.tmp.vo.monitor.query.MonitorTaskQueryVO" resultMap="MonitorTaskQueryResultVO" >
+    select t.task_id task_id, t.task_code task_code, t.task_status task_status, t.start_time start_time, t.end_time end_time,
+      t.task_level task_level, t.device_number device_number, p.person_name person_name, t.create_time create_time,
+      (select count(0) from twmp_monitor_task_approval_ef a where a.task_id =  t.task_id and  a.approval_status = 2) count_submit,
+      (select count(0) from twmp_ope_change c where c.task_id = t.task_id and c.change_time is null) count_change_device,
+      (case
+        when  ROUND (100 * ((TO_SECONDS(NOW()) - TO_SECONDS(start_time)) / (TO_SECONDS(end_time)-TO_SECONDS(start_time)))) &lt; 0 then 0
+        when  ROUND (100 * ((TO_SECONDS(NOW()) - TO_SECONDS(start_time)) / (TO_SECONDS(end_time)-TO_SECONDS(start_time)))) &gt; 100 then 100
+        else ROUND(100 * ((TO_SECONDS(NOW()) - TO_SECONDS(start_time)) / (TO_SECONDS(end_time)-TO_SECONDS(start_time)))) end) task_progress
+    from twmp_monitor_task_ef t
+    left join twmp_bs_person_ef p on t.person_id = p.person_id
+    where t.deleted = 1
+    <if test=" startTime != null and startTime != ''"  >
+      and unix_timestamp(start_time) &gt;= unix_timestamp(#{startTime})
+    </if>
+    <if test=" endTime != null and endTime != ''" >
+      and unix_timestamp(end_time) &lt;= unix_timestamp(#{endTime})
+    </if>
+    <if test=" personName != null and personName != '' ">
+      and person_name like concat(%, #{personName}, %)
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number list concat(%, #{deviceNumber}, %)
+    </if>
+    <if test="taskCode != null and taskCode != ''" >
+      and task_code like concat(%, #{taskCode}, %)
+    </if>
+    <!--为null则表示查询全部 -->
+    <if test="taskStatusList != null and taskStatusList.size() != 0">
+      and t.task_status in
+      <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+        #{taskStatus}
+      </foreach>
+    </if>
+    and t.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+  </select>
+
+
+  <select id="countTaskList" parameterType="com.ceiec.twmp.tmp.vo.monitor.query.MonitorTaskQueryVO" resultType="java.lang.Long">
+    select count(t.task_id)
+    from twmp_monitor_task_ef t
+    left join twmp_bs_person_ef p on t.person_id = p.person_id
+    where t.deleted = 1
+    <if test=" startTime != null and startTime != ''"  >
+      and unix_timestamp(start_time) &gt;= unix_timestamp(#{startTime})
+    </if>
+    <if test=" endTime != null and endTime != ''" >
+      and unix_timestamp(end_time) &lt;= unix_timestamp(#{endTime})
+    </if>
+    <if test=" personName != null and personName != '' ">
+      and person_name like concat(%, #{personName}, %)
+    </if>
+    <if test="deviceNumber != null and deviceNumber != ''" >
+      and device_number list concat(%, #{deviceNumber}, %)
+    </if>
+    <if test="taskCode != null and taskCode != ''" >
+      and task_code like concat(%, #{taskCode}, %)
+    </if>
+    <!--为null则表示查询全部 -->
+    <if test="taskStatusList != null and taskStatusList.size() != 0">
+      and t.task_status in
+      <foreach collection="taskStatusList" item="taskStatus" index="index" open="(" close=")" separator="," >
+        #{taskStatus}
+      </foreach>
+    </if>
+    and t.department_id in
+    <foreach collection="departmentIds" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+  </select>
+
+<select id="getMonitorTaskDetail" parameterType="com.ceiec.twmp.tmp.vo.monitor.query.MonitorTaskDetailQueryVO" resultMap="MonitorTaskDetailQueryResultVO">
+      select t.task_id task_id,
+        p.person_name person_name, p.person_id person_id, p.person_url person_url, p.person_former_name person_former_name,
+        p.person_number person_number, p.birth_date birth_date, p.gender gender, p.marital_status marital_status, p.person_id_card person_id_card,
+        p.department_id department_id, p.phone phone, p.career career, p.address address,
+        c.criminal_id criminal_id, c.criminal_type criminal_type, c.criminal_time criminal_time, c.criminal_site criminal_site,
+        c.criminal_act criminal_act, c.law_enforcement_agency law_enforcement_agency, c.dispose_time dispose_time,
+        c.dispose_result dispose_result, c.criminal_number criminal_number,
+        t.task_level task_level, t.task_code task_code, t.start_time start_time, t.end_time end_time, t.document_url document_url,
+        t.task_reason task_reason, t.report_start_time report_start_time, t.report_end_time report_end_time,
+        t.report_time_interval  report_time_interval, t.report_location report_location, t.report_time report_time
+      from twmp_monitor_task_ef t
+      left outer join twmp_bs_person_ef p on t.person_id = p.person_id
+      left outer join twmp_bs_person_criminal_ef c on t.person_id = c.person_id
+      where t.deleted = 1
+      and p.deleted = 1
+      and c.deleted = 1
+      and t.task_id = #{taskId}
+  </select>
+
+  <select id="getFenceList" parameterType="java.lang.Long" resultMap="MonitorTaskFenceRequltVO" >
+    select f.task_id task_id, f.fence_id fence_id,  f.fence_type fence_type, f.comment comment,
+    f.start_time start_time, f.end_time end_time, f.fence_status fence_status,
+    s.shape_id shape_id, s.space space
+    from twmp_monitor_task_fence_ef f
+    left join twmp_monitor_task_fence_space_ef s on f.fence_id = s.fence_id
+    where f.deleted = 1
+    and f.task_id = #{taskId}
+    order by f.create_time desc
+  </select>
+
+  <select id="getGuardianList" parameterType="java.lang.Long" resultMap="MonitorGuardianResultVO" >
+    select t.team_id team_id, t.photo_url photo_url, t.name name,
+      t.phone phone, t.email email, t.address address, t.relation_type relation_type
+    from twmp_monitor_task_team_ef t
+    where t.deleted = 1
+    and t.task_id = #{taskId}
+    order by t.create_time desc
+  </select>
+
+
+  <select id="getTaskByTime" resultMap="BaseResultMap" >
+    select * from twmp_monitor_task_ef
+    where deleted = 1
+      and unix_timestamp(start_time) &gt;=  unix_timestamp(#{startTime})
+      and unix_timestamp(end_time) &lt;=  unix_timestamp(#{endTime})
+  </select>
+
+
+  <select id="getPersonTaskList" parameterType="java.lang.String" resultMap="PersonTaskResultVO" >
+    select task_id, task_code, start_time, end_time, person_name
+    from twmp_monitor_task_ef task right join twmp_bs_person_ef person where task.person_id = person.person_id
+    where person_name like concat('%', #{personName}, '%')
+    order by start_time desc
+  </select>
+
+  <select id="getTaskByTaskCode" parameterType="java.lang.String" resultMap="BaseResultMap" >
+   select *
+   from twmp_monitor_task_ef
+   where deleted = 1 and task_code = #{taskCode}
+  </select>
+
+
+
+  <!-- task_status = 13 安装完成等待进入监控中； task_status = 20 监控中等待进入监控完成 -->
+  <select id="getInstalledAndMonitoringTasks" resultMap="BaseResultMap">
+    select *
+    from twmp_monitor_task_ef t
+    where t.deleted = 1
+      and (t.task_status = 13 or t.task_status = 20)
+  </select>
+
+
+  <select id="queryMonitorPerson" parameterType="com.ceiec.twmp.tmp.vo.monitor.query.TaskQueryVO" resultMap="MonitorPersonResultVO">
+    select task.task_id, task.task_code, task.person_id, task.person_name, task.device_id, task.device_number,
+     task.department_id, task.department_name, task.task_level, device.online_status, device.device_power
+     from twmp_monitor_task_ef task left join twmp_dev_device device  on task.device_id = device.device_id
+    <if test=" taskCode != null and taskCode != ''"  >
+      and task.task_code like  concat('%',#{taskCode},'%')
+    </if>
+    <if test=" personName != null and personName != ''"  >
+      and task.person_name like  concat('%',#{personName},'%')
+    </if>
+    <if test=" deviceNumber != null and deviceNumber != ''"  >
+      and task.device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test=" departmentId != null and departmentId != ''"  >
+      and task.department_id = #{departmentId}
+    </if>
+    and task.department_id in
+    <foreach collection="ownDepartmentId" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="countMonitorPerson" parameterType="com.ceiec.twmp.tmp.vo.monitor.query.TaskQueryVO" resultType="java.lang.Long">
+    select count(task.task_id)
+    from twmp_monitor_task_ef task left join twmp_dev_device device  on task.device_id = device.device_id
+    <if test=" taskCode != null and taskCode != ''"  >
+      and task.task_code like  concat('%',#{taskCode},'%')
+    </if>
+    <if test=" personName != null and personName != ''"  >
+      and task.person_name like  concat('%',#{personName},'%')
+    </if>
+    <if test=" deviceNumber != null and deviceNumber != ''"  >
+      and task.device_number like  concat('%',#{deviceNumber},'%')
+    </if>
+    <if test=" departmentId != null and departmentId != ''"  >
+      and task.department_id = #{departmentId}
+    </if>
+    <if test=" taskStatus != null and taskStatus != ''"  >
+      and task.task_status = #{taskStatus}
+    </if>
+    and task.department_id in
+    <foreach collection="ownDepartmentId" item="id" index="index" open="(" close=")" separator="," >
+      #{id}
+    </foreach>
+    order by create_time desc
+  </select>
+</mapper>

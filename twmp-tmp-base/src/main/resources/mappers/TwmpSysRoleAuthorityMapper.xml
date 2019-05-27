@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysRoleAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysRoleAuthority" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="authority_id" property="authorityId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <delete id="deleteAllAuthByRoleId" parameterType="long" >
+     delete from twmp_sys_role_authority where role_id = #{roleId}
+  </delete>
+
+  <!-- 批量插入生成的兑换码 -->
+  <insert id ="insertRoleAuthorityBatch" parameterType="java.util.List" >
+    insert into twmp_sys_role_authority
+    (id,role_id, authority_id)
+    values
+    <foreach collection ="list" item="authority" index= "index" separator =",">
+      (
+      #{authority.id},#{authority.roleId}, #{authority.authorityId}
+      )
+    </foreach >
+  </insert >
+
+
+
+</mapper>

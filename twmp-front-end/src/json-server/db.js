@@ -1,0 +1,20 @@
+module.exports = {
+  'user_login':  require('./data/user/login.json'),
+  'user_logout':  require('./data/user/logout.json'),
+  'user_userList':  require('./data/user/userList.json'),
+  'user_config': require('./data/user/permission.json'),
+  'monitor_list': require('./data/monitor/monitorList.json'),
+  'monitor_alarmList': require('./data/monitor/alarmList.json'),
+  'department_list': require('./data/system/department.json'),
+  'role_list': require('./data/system/role.json'),
+  'parameter_list': require('./data/system/parameters.json'),
+  'dict_types': require('./data/system/dicts.json'),
+  'user_list': require('./data/system/user.json'),
+  'message_list': require('./data/user/messages.json'),
+  'paperwork_list': require('./data/system/paperwork.json'),
+  'person_list': require('./data/information/personList.json'),
+  'query_alarm': require('./data/analysis/alarmDateChartData.json'),
+  'query_alarm_type': require('./data/analysis/alarmTypeChartData.json'),
+  'task_list': require('./data/task/taskList.json'),
+  'task_approve_list': require('./data/task/approveList.json')
+}

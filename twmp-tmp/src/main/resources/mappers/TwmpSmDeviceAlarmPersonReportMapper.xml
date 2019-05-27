@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSmDeviceAlarmPersonReportMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSmDeviceAlarmPersonReport" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="report_id" property="reportId" jdbcType="BIGINT" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP" />
+      <result column="alarm_type" property="alarmType" jdbcType="TINYINT"/>
+  </resultMap>
+
+  <select id="selectDays" parameterType="com.ceiec.twmp.tmp.vo.chart.query.QueryDaysVO" resultType="string">
+        select DISTINCT date(a.alarm_time) from  twmp_sm_device_alarm_person_report a
+        where a.alarm_time >= #{today} - #{days}
+        group by a.alarm_time
+    </select>
+
+    <select id="personAlarmCountTOP10" parameterType="com.ceiec.twmp.tmp.vo.chart.query.ChartQueryVO"
+            resultType="com.ceiec.twmp.tmp.vo.chart.result.PersonAlarmTop10ResultVO">
+        select b.num,c.person_name personName,c.person_number personNumber from
+        (select sum(num) num , person_id  from twmp_sm_device_alarm_person_report a
+        where num != 0
+        <if test="departmentIdList != null and departmentIdList.size() > 0">
+            and a.department_id in
+            <foreach collection="departmentIdList" item="id" index="index" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and a.alarm_time >= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[and a.alarm_time <= #{endTime}]]>
+        </if>
+        <if test="alarmTypes != null and alarmTypes.size() > 0 ">
+            and a.alarm_type in
+            <foreach collection="alarmTypes" item="type" index="index" separator="," open="(" close=")">
+                #{type}
+            </foreach>
+        </if>
+        group by a.person_id
+        order by num desc
+        limit  10) b
+        left join twmp_bs_person_ef c
+        on b.person_id = c.person_id
+
+    </select>
+</mapper>

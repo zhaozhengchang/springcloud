@@ -1,0 +1,25 @@
+server:
+  port: 1003
+spring:
+
+  application:
+    name: twmp-gateway
+
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:1002
+
+eureka:
+  clinet:
+    serviceUrl:
+      defaultZone: http://localhost:1000/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 60
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+

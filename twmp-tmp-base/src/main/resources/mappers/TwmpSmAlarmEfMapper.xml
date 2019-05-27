@@ -1,0 +1,232 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSmAlarmEfMapper">
+    <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSmAlarmEf">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="alarm_id" property="alarmId" jdbcType="BIGINT"/>
+    <result column="alarm_number" property="alarmNumber" jdbcType="VARCHAR"/>
+    <result column="task_id" property="taskId" jdbcType="BIGINT"/>
+    <result column="last_dispose_time" property="lastDisposeTime" jdbcType="TIMESTAMP"/>
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR"/>
+    <result column="alarm_type" property="alarmType" jdbcType="TINYINT"/>
+    <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP"/>
+    <result column="alarm_status" property="alarmStatus" jdbcType="TINYINT"/>
+    <result column="incident_appeal_time" property="incidentAppealTime" jdbcType="TIMESTAMP"/>
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+    <result column="incident_disposal_person_name" property="incidentDisposalPersonName" jdbcType="VARCHAR"/>
+    <result column="incident_address" property="incidentAddress" jdbcType="VARCHAR"/>
+    <result column="alarm_flag" property="alarmFlag" jdbcType="TINYINT"/>
+    <result column="tag_value" property="tagValue" jdbcType="VARCHAR"/>
+    <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="VARCHAR"/>
+    <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+    <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+    <result column="speed" property="speed" jdbcType="VARCHAR"/>
+    <result column="direction" property="direction" jdbcType="VARCHAR"/>
+    <result column="gps_time" property="gpsTime" jdbcType="TIMESTAMP"/>
+    <result column="reject_user_id" property="usedUserId" jdbcType="VARCHAR"/>
+    <result column="handle_user_id" property="handleUserId" jdbcType="BIGINT"/>
+    <result column="handle_user" property="handleUser" jdbcType="VARCHAR"/>
+    <result column="creator" property="creator" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="updater" property="updater" jdbcType="VARCHAR"/>
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+    <result column="person_id" property="personId" jdbcType="BIGINT"/>
+    <result column="device_id" property="deviceId" jdbcType="BIGINT"/>
+    <result column="person_name" property="personName" jdbcType="VARCHAR"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR"/>
+</resultMap>
+
+
+
+
+    <resultMap id="AlarmListVO" type="com.ceiec.twmp.tmp.vo.alarm.result.AlarmListVO">
+        <id column="alarm_id" property="alarmId" jdbcType="BIGINT"/>
+        <result column="alarm_number" property="alarmNumber" jdbcType="VARCHAR"/>
+        <result column="task_code" property="taskCode" jdbcType="VARCHAR"/>
+        <result column="person_name" property="personName" jdbcType="VARCHAR"/>
+        <result column="device_number" property="deviceNumber" jdbcType="VARCHAR"/>
+        <result column="alarm_type" property="alarmType" jdbcType="TINYINT"/>
+        <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="AlarmDetailVO" type="com.ceiec.twmp.tmp.vo.alarm.result.AlarmDetailVO">
+        <id column="alarm_id" property="alarmId" jdbcType="BIGINT"/>
+        <result column="alarm_number" property="alarmNumber" jdbcType="VARCHAR"/>
+        <result column="task_code" property="taskCode" jdbcType="VARCHAR"/>
+        <result column="person_name" property="personName" jdbcType="VARCHAR"/>
+        <result column="device_number" property="deviceNumber" jdbcType="VARCHAR"/>
+        <result column="alarm_type" property="alarmType" jdbcType="TINYINT"/>
+        <result column="alarm_time" property="alarmTime" jdbcType="TIMESTAMP"/>
+        <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+
+    <select id="groupByAlarmTypeAndDepartment" parameterType="string"
+            resultType="com.ceiec.twmp.tmp.entity.TwmpSmDeviceAlarmReport">
+       select department_id departmentId,alarm_type alarmType,count(1) num  from twmp_sm_alarm_ef a
+     where a.deleted = 1
+     and a.alarm_time >= #{day}
+     <![CDATA[ and a.alarm_time <= concat(#{day},' 23:59:59')]]>
+        group by department_id,alarm_type
+    </select>
+
+    <update id="updateAlarmHandleUserBatch" parameterType="java.util.List" >
+        drop TEMPORARY table if EXISTS tmp_alarm;
+
+        create TEMPORARY table tmp_alarm(id bigint(20), alarm_status tinyint(4), handle_user varchar(64), handle_user_id bigint(20));
+
+        insert into tmp_alarm(id, alarm_status, handle_user, handle_user_id) values
+        <foreach collection ="list" item="twmpSmAlarmEf" index= "index" separator =",">
+            (
+            #{twmpSmAlarmEf.alarmId},
+            #{twmpSmAlarmEf.alarmStatus},
+            #{twmpSmAlarmEf.handleUser},
+            #{twmpSmAlarmEf.handleUserId}
+            )
+        </foreach >
+        ;
+
+        update twmp_sm_alarm_ef, tmp_alarm
+        set twmp_sm_alarm_ef.alarm_status =tmp_alarm.alarm_status,
+        twmp_sm_alarm_ef.handle_user =tmp_alarm.handle_user
+        twmp_sm_alarm_ef.handle_user_id =tmp_alarm.handle_user_id
+        where twmp_sm_alarm_ef.alarm_id=tmp_alarm.alarm_id;
+
+    </update>
+
+
+    <select id="getUnDisposedAlarm" parameterType="java.lang.Byte" resultMap="BaseResultMap" >
+        select * from twmp_sm_alarm_ef where alarm_status != #{alarmStats} and deleted = 1
+    </select>
+
+
+    <update id="updateAlarmStatusByHandUserId">
+        update twmp_sm_alarm_ef set alarm_status =#{toAlarmStatus}, hand_user_id is null, hand_user is null
+        where alarm_status =#{fromAlarmStatus} and hand_user_id =#{handUserId}
+    </update>
+
+    <select id="countToDisposeAlarmNum" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(alarm_id) from twmp_sm_alarm_ef where deleted = 1 and hand_user_id = #{userId} and alarm_status = 2
+
+    </select>
+
+    <select id="countToAllocateNum" parameterType="java.util.List" resultType="java.lang.Long">
+        select count(alarm_id) from twmp_sm_alarm_ef where deleted = 1 and alarm_status = 1
+        and department_id in
+        <foreach collection="ownDepartmentIds" item="id" index="index" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="countDisposedAlarmNum" parameterType="java.util.List" resultType="java.lang.Long">
+        select count(alarm_id) from twmp_sm_alarm_ef where deleted = 1 and alarm_status = 3
+        and department_id in
+        <foreach collection="ownDepartmentIds" item="id" index="index" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+    </select>
+
+
+
+    <select id="queryAlarm" parameterType="com.ceiec.twmp.tmp.vo.alarm.query.AlarmQueryVO" resultMap="AlarmListVO">
+        select alarm_id, alarm_number, task_code, person_name, device_number, alarm_type, alarm_time
+         from twmp_sm_alarm_ef where deleted = 1
+        <if test="taskCode != null and taskCode != ''" >
+            and task_code like  concat('%', #{taskCode}, '%')
+        </if>
+        <if test="personName != null and personName != ''" >
+            and person_name like  concat('%', #{personName}, '%')
+        </if>
+        <if test="deviceNumber != null and deviceNumber != ''" >
+            and device_number like  concat('%', #{deviceNumber}, '%')
+        </if>
+        <if test="beginTime != null and beginTime != ''" >
+            and alarm_time &gt;=  #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''" >
+            and alarm_time &lt;=  #{endTime}
+        </if>
+        <if test="alarmStatus != null and alarmStatus != ''" >
+            and alarm_status = #{alarmStatus}
+        </if>
+        <if test="alarmType != null and alarmType != ''" >
+            and alarm_type = #{alarmType}
+        </if>
+        <foreach collection="ownDepartmentIds" item="id" index="index" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+        <if test="userId != null and userId != ''" >
+            and hand_user_id = #{userId}
+        </if>
+        order by alarm_time desc
+    </select>
+
+
+    <select id="countAlarm" parameterType="com.ceiec.twmp.tmp.vo.alarm.query.AlarmQueryVO" resultType="java.lang.Long">
+        select (alarm_id) from twmp_sm_alarm_ef where deleted = 1
+        <if test="taskCode != null and taskCode != ''" >
+            and task_code like  concat('%', #{taskCode}, '%')
+        </if>
+        <if test="personName != null and personName != ''" >
+            and person_name like  concat('%', #{personName}, '%')
+        </if>
+        <if test="deviceNumber != null and deviceNumber != ''" >
+            and device_number like  concat('%', #{deviceNumber}, '%')
+        </if>
+        <if test="beginTime != null and beginTime != ''" >
+            and alarm_time &gt;=  #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''" >
+            and alarm_time &lt;=  #{endTime}
+        </if>
+        <if test="alarmStatus != null and alarmStatus != ''" >
+            and alarm_status = #{alarmStatus}
+        </if>
+        <if test="alarmType != null and alarmType != ''" >
+            and alarm_type = #{alarmType}
+        </if>
+        <foreach collection="ownDepartmentIds" item="id" index="index" open="(" close=")" separator="," >
+            #{id}
+        </foreach>
+        <if test="userId != null and userId != ''" >
+            and hand_user_id = #{userId}
+        </if>
+    </select>
+
+
+    <select id="getAlarmDetail" parameterType="java.lang.Long" resultMap="AlarmDetailVO">
+          select alarm.alarm_id, alarm.alarm_number, alarm.task_code, alarm.person_name, alarm.device_number, alarm.alarm_type, alarm.alarm_time,
+          alarm.longitude, alarm.latitude, person.phone, alarm.remark
+         from twmp_sm_alarm_ef alarm left join twmp_bs_person_ef person on alarm.person_id = person.person_id where deleted = 1 and alarm_id = #{alarmId}
+    </select>
+
+    <select id="groupByPersonAndDepartment" parameterType="string"
+            resultType="com.ceiec.twmp.tmp.entity.TwmpSmDeviceAlarmPersonReport">
+    select departmentId,personId,alarmType,count(1) num from (
+       select a.department_id departmentId,a.person_id personId,alarm_type alarmType  from twmp_sm_alarm_ef a
+       where a.deleted = 1
+       and a.alarm_time >= #{day}
+       <![CDATA[ and a.alarm_time <= concat(#{day},' 23:59:59')]]>
+     ) ab
+        group by departmentId,personId,alarmType
+    </select>
+
+    <select id="queryDisposedAlarmByTaskId" parameterType="com.ceiec.twmp.tmp.vo.alarm.query.AlarmQueryVO" resultMap="AlarmListVO">
+        select alarm_id, alarm_number, task_code, person_name, device_number, alarm_type, alarm_time
+        from twmp_sm_alarm_ef where deleted = 1 and alarm_status = 3 and task_id =#{taskId}
+        order by alarm_time desc
+    </select>
+
+
+</mapper>

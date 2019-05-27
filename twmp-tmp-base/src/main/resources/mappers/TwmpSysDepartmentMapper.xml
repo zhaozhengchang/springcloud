@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysDepartmentMapper">
+    <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysDepartment">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="fax" property="fax" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="map_center" property="mapCenter" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updater" property="updater" jdbcType="VARCHAR"/>
+        <result column="updater_id" property="updaterId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="level" property="level" jdbcType="TINYINT"/>
+        <result column="department_code" property="departmentCode" jdbcType="VARCHAR"/>
+        <result column="task_num" property="taskNum" jdbcType="INTEGER" />
+        <result column="person_num" property="personNum" jdbcType="INTEGER" />
+
+    </resultMap>
+
+
+    <resultMap id="DepartmentListResultVO" type="com.ceiec.twmp.tmp.vo.department.result.DepartmentListResultVO">
+        <id column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="fax" property="fax" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="map_center" property="mapCenter" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="TINYINT"/>
+        <result column="department_code" property="departmentCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="DepartmentTreeVO" type="com.ceiec.twmp.tmp.vo.department.result.DepartmentTreeVO">
+        <id column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="fax" property="fax" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="map_center" property="mapCenter" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="TINYINT"/>
+        <result column="department_code" property="departmentCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getAllDepartment" resultMap="DepartmentListResultVO">
+    select department_id, department_name, parent_id, contacts, phone, fax, address, map_center,level,department_code
+    from twmp_sys_department
+    where deleted = 1;
+  </select>
+
+
+    <select id="listDepartmentIdsByParentIds" parameterType="java.util.List" resultType="long">
+        select department_id from twmp_sys_department a where a.parent_id in
+        <foreach collection="list" item="department_id" index="index" open="(" close=")" separator=",">
+            #{department_id}
+        </foreach>
+    </select>
+
+    <select id="deleteDepartmentsById" parameterType="map">
+        update    twmp_sys_department a set a.updater = #{updater} , a.updater_id = #{updaterId} ,
+                  a.update_time = now() , deleted = 0
+        where a.department_id in
+        <foreach collection="departmentIdList" item="departmentId" index="index" open="(" close=")" separator=",">
+            #{departmentId}
+        </foreach>
+    </select>
+
+   <!-- <select id="listDepartmentsByParentId" parameterType="java.util.List" resultMap="DepartmentListResultVO">
+        select * from twmp_sys_department a where a.parent_id in
+        <foreach collection="list" item="department_id" index="index" open="(" close=")" separator=",">
+            #{department_id}
+        </foreach>
+    </select>-->
+    <select id="listDepartmentsByParentId" parameterType="long" resultMap="DepartmentTreeVO">
+        select * from twmp_sys_department a where a.parent_id = #{id}
+    </select>
+
+    <update id="updateBatchPersonNum" parameterType="java.util.List" >
+        update twmp_sys_department d
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="person_num=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.personNum != null">
+                        when department_id=#{item.departmentId} then #{item.personNum}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="updater_id =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.updaterId != null">
+                        when department_id=#{item.departmentId} then #{item.updaterId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="updater =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.updater != null">
+                        when department_id=#{item.departmentId} then #{item.updater}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_time =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.updateTime != null">
+                        when department_id=#{item.departmentId} then #{item.updateTime}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where department_id in
+        <foreach collection="list" separator="," item="item" index="index" open="(" close=")">
+            #{item.departmentId}
+        </foreach>
+    </update>
+        </mapper>

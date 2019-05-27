@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpMonitorTaskFenceSpaceEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskFenceSpaceEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="shape_id" property="shapeId" jdbcType="BIGINT" />
+    <result column="fence_id" property="fenceId" jdbcType="BIGINT" />
+    <result column="space" property="space" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="addFenceSpaceList" parameterType="java.util.List" >
+    insert into twmp_monitor_task_fence_space_ef (shape_id, fence_id, space)
+    values
+    <foreach collection="list" item="team" index="index" separator="," >
+      ( #{team.shapeId}, #{team.fenceId}, #{team.space} )
+    </foreach>
+  </insert>
+
+
+  <update id="updateFenceSpaceList" parameterType="java.util.List" >
+    update twmp_monitor_task_fence_space_ef
+    set space =
+    <foreach collection="list" item="item" index="index" separator=" " open="case shape_id" close="end,">
+      when #{item.shapeId} then #{item.space}
+    </foreach>
+    fence_id =
+    <foreach collection="list" item="item" index="index" separator=" " open="case shape_id" close="end">
+      when #{item.shapeId} then #{item.fenceId}
+    </foreach>
+    where shape_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.shapeId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+</mapper>

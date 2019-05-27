@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpSysPaperworkMapper">
+    <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpSysPaperwork">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="paperwork_id" property="paperworkId" jdbcType="BIGINT"/>
+        <result column="paperwork_name" property="paperworkName" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="creator_id" property="creatorId" jdbcType="BIGINT"/>
+        <result column="deleted" property="deleted" jdbcType="TINYINT"/>
+        <result column="updater" property="updater" jdbcType="VARCHAR"/>
+        <result column="updater_id" property="updaterId" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="file_id" property="fileId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="listPaperwork" parameterType="com.ceiec.twmp.tmp.vo.paperwork.query.PaperworkQueryVO"
+            resultMap="BaseResultMap">
+        select * from twmp_sys_paperwork r where 1=1
+        <if test="paperworkName != null and paperworkName != ''">
+            and r.paperwork_name LIKE concat('%',#{paperworkName},'%')
+        </if>
+        <if test="creator != null and creator != ''">
+            and r.creator LIKE concat('%',#{creator},'%')
+        </if>
+        <if test="startTime != null and startTime != ''">
+            and r.create_time >= startTime
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[and r.create_time <= endTime]]>
+        </if>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,81 @@
+{
+	"code": "00000",
+	"error": null,
+	"data": {
+		"total": "30",
+		"roleList": [
+            {
+              "roleID": 10001,
+              "roleName": "T10001",
+              "creator": "test1",
+              "createTime": "2018-12-10 10:29:33",
+              "updateTime": "2018-12-10 10:29:33",
+              "updator": 1001
+            },
+            {
+                "roleID": 10002,
+                "roleName": "T10002",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10003,
+                "roleName": "T10003",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10004,
+                "roleName": "T10004",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10005,
+                "roleName": "T10005",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10006,
+                "roleName": "T10006",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10007,
+                "roleName": "T10007",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10007,
+                "roleName": "T10007",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            },
+            {
+                "roleID": 10007,
+                "roleName": "T10007",
+                "creator": "test1",
+                "createTime": "2018-12-10 10:29:33",
+                "updateTime": "2018-12-10 10:29:33",
+                "updator": 1001
+            }
+          ]
+	}
+}

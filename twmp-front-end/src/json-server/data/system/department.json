@@ -1,0 +1,57 @@
+{
+	"code": "00000",
+	"error": null,
+	"data": {
+		"departmentName": "Root organization",
+		"parentId": 0,
+		"contacts": null,
+		"phone": null,
+		"fax": null,
+		"address": null,
+		"mapCenter": "{\"center\":{\"x\":12316145.49353388,\"y\":3388912.086051575,\"projection\":\"EPSG:3857\"},\"zoom\":8}",
+    "departmentId": 1,
+		"childrenList": [{
+			"departmentName": "cc",
+			"parentId": 1,
+			"contacts": null,
+			"phone": null,
+			"fax": null,
+			"address": null,
+			"mapCenter": null,
+      "departmentId": 2,
+			"childrenList": [{
+					"departmentName": "sdf",
+					"parentId": 2,
+					"contacts": null,
+					"phone": null,
+					"fax": null,
+					"address": null,
+					"mapCenter": null,
+					"departmentId": 3,
+          "childrenList": null
+				},
+				{
+					"departmentName": "as35sdf",
+					"parentId": 2,
+					"contacts": null,
+					"phone": null,
+					"fax": null,
+					"address": null,
+					"mapCenter": null,
+          "departmentId": 4,
+					"childrenList": [{
+						"departmentName": "34dfvxdf",
+						"parentId": 4,
+						"contacts": null,
+						"phone": null,
+						"fax": null,
+						"address": null,
+						"mapCenter": "{\"center\":{\"x\":13535163.220625872,\"y\":3630758.843545874,\"projection\":\"EPSG:3857\"},\"zoom\":8}",
+						"departmentId": 5,
+						"childrenList": null
+					}]
+				}
+			]
+		}]
+	}
+}

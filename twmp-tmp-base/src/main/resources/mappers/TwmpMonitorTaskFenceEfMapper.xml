@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ceiec.twmp.tmp.mapper.TwmpMonitorTaskFenceEfMapper" >
+  <resultMap id="BaseResultMap" type="com.ceiec.twmp.tmp.entity.TwmpMonitorTaskFenceEf" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="fence_id" property="fenceId" jdbcType="BIGINT" />
+    <result column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="task_change_id" property="taskChangeId" jdbcType="BIGINT" />
+    <result column="fence_status" property="fenceStatus" jdbcType="TINYINT" />
+    <result column="fence_type" property="fenceType" jdbcType="TINYINT" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updater_id" property="updaterId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="TINYINT" />
+  </resultMap>
+
+  <resultMap id="FenceShapeVO" type="com.ceiec.twmp.tmp.vo.fence.FenceShapeVO">
+    <result column="fence_id" property="fenceId" jdbcType="BIGINT" />
+    <result column="fence_type" property="fenceType" jdbcType="TINYINT" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="space" property="space" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="addFenceList" parameterType="java.util.List" >
+    insert into twmp_monitor_task_fence_ef (fence_id, task_id, fence_status, fence_type, start_time, end_time,
+    comment, creator, creator_id, create_time)
+    values
+    <foreach collection="list" item="fence" index="index" separator="," >
+      ( #{fence.fenceId}, #{fence.taskId}, #{fence.fenceStatus}, #{fence.fenceType}, #{fence.startTime}, #{fence.endTime},
+        #{fence.comment}, #{fence.creator}, #{fence.creatorId}, #{fence.createTime})
+    </foreach>
+  </insert>
+
+  <update id="editFenceList" parameterType="java.util.List" >
+    update twmp_monitor_task_fence_ef
+    set  task_id =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.taskId}
+    </foreach>
+    fence_status =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.fenceStatus}
+    </foreach>
+    fence_type =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.fenceType}
+    </foreach>
+    start_time =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.startTime}
+    </foreach>
+    end_time =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.endTime}
+    </foreach>
+    comment =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.comment}
+    </foreach>
+    updater =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.updater}
+    </foreach>
+    updater_id =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.updaterId}
+    </foreach>
+    update_time =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end">
+      when #{item.fenceId} then #{item.updateTime}
+    </foreach>
+    where fence_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.fenceId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+
+  <update id="delFenceList" parameterType="java.util.List" >
+    update twmp_monitor_task_fence_ef
+    set deleted =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.deleted}
+    </foreach>
+    updater =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.updater}
+    </foreach>
+    updater_id =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end,">
+      when #{item.fenceId} then #{item.updaterId}
+    </foreach>
+    update_time =
+    <foreach collection="list" item="item" index="index" separator=" " open="case fence_id" close="end">
+      when #{item.fenceId} then #{item.updateTime}
+    </foreach>
+    where fence_id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.fenceId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <update id="updateChangeTaskId" parameterType="java.lang.Long" >
+    update twmp_monitor_task_fence_ef
+    set task_change_id = #{taskId}
+    where task_id = #{taskId}
+</update>
+
+
+  <select id="selectEnableFenceSpaceByTaskId" parameterType="java.lang.Long" resultMap="FenceShapeVO">
+    select fence.fence_id, fence.fence_type, fence.start_time, fence.end_time, fspace.space
+    from twmp_monitor_task_fence_ef fence left join twmp_monitor_task_fence_space_ef fspace on fence.fence_id = fspace.fence_id
+    where fence.task_id = #{taskId} and deleted =1
+  </select>
+
+</mapper>
